@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cogni IA oferece agentes de inteligência artificial personalizados para automatizar processos e impulsionar resultados em sua empresa.">
+    <title>Cogni IA | Agentes de Inteligência Artificial</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://saymonaraujo.dev/1.png">
+
+    <!-- Preconnects otimizados -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://prod.spline.design" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    
+    <!-- Preload recursos críticos -->
+    <link rel="preload" href="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js" as="script" crossorigin="anonymous">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="https://saymonaraujo.dev/2.png" as="image">
+
+    <!-- Fontes Google com display=swap para renderização progressiva -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome com atributos de otimização -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
+
+    <!-- Link para o arquivo CSS externo -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP CDN (Necessário no HTML antes do script.js que o utiliza) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+    <!-- Spline Viewer Script (Atualizado para a versão mais recente) -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js" defer></script>
+
+    <!-- Estilos críticos inline para o primeiro render -->
+    <style>
+        /* Estilos críticos para o primeiro render */
+        body { margin: 0; font-family: 'Poppins', sans-serif; }
+        header { position: fixed; width: 100%; top: 0; z-index: 100; background: rgba(245, 245, 247, 0.75); backdrop-filter: blur(10px); }
+        .hero { min-height: 100vh; display: flex; align-items: center; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hero-content { position: relative; z-index: 2; max-width: 600px; text-align: center; }
+        .cta-button { display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #4242FF 0%, #A379C9 100%); color: white; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <div class="container">
+            <nav>
+                <div class="logo-button-group">
+                    <a href="#" class="logo main-nav-link optimize-animation">
+                        <img id="logo-image" src="https://saymonaraujo.dev/2.png" alt="Cogni IA Logo" width="59" height="59">
+                    </a>
+                    <button class="theme-toggle optimize-animation" id="theme-toggle-button" aria-label="Toggle dark mode">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </button>
+                    <div class="language-selector">
+                        <button class="language-selector-button">
+                            <span id="current-language">PT</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="language-dropdown">
+                            <div class="language-option" data-lang="pt">
+                                <img src="https://cdn.jsdelivr.net/npm/flag-icon-css@3.5.0/flags/4x3/br.svg" alt="Bandeira do Brasil" loading="lazy" width="20" height="15">
+                                <span>Português</span>
+                            </div>
+                            <div class="language-option" data-lang="en">
+                                <img src="https://cdn.jsdelivr.net/npm/flag-icon-css@3.5.0/flags/4x3/us.svg" alt="Bandeira dos Estados Unidos" loading="lazy" width="20" height="15">
+                                <span>English</span>
+                            </div>
+                            <div class="language-option" data-lang="es">
+                                <img src="https://cdn.jsdelivr.net/npm/flag-icon-css@3.5.0/flags/4x3/es.svg" alt="Bandeira da Espanha" loading="lazy" width="20" height="15">
+                                <span>Español</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navegação Principal (Desktop/Mobile) -->
+                <nav class="nav-links" id="main-nav-links">
+                    <ul>
+                        <li><a href="#features" data-i18n="nav-resources">Recursos</a></li>
+                        <li><a href="#products" data-i18n="nav-products">Produtos</a></li>
+                        <li><a href="#contact" data-i18n="nav-contact">Contato</a></li>
+                        <!-- Link "Sobre Nós" removido -->
+                    </ul>
+                </nav>
+                <!-- Botão Hamburger -->
+                <button class="hamburger" id="hamburger-button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav-links">☰</button>
+            </nav>
+        </div>
+    </header>
+    <main role="main">
+        <div id="main-content-wrapper">
+            <!-- Hero Section -->
+            <section class="hero fade-in-section" id="home">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 data-i18n="hero-title">Transforme seu Negócio com Inteligência Artificial</h1>
+                        <p data-i18n="hero-subtitle">Soluções personalizadas de IA para automatizar processos e impulsionar resultados</p>
+                        <button class="cta-button optimize-animation" data-i18n="start-now">Iniciar Agora</button>
+                    </div>
+                    <!-- Spline Viewer -->
+                    <!-- Adicionar estratégia de carregamento para o Spline -->
+                    <spline-viewer
+                        id="spline-viewer-main"
+                        class="optimize-animation"
+                        loading="lazy"
+                        fetchpriority="low"
+                        importance="high">
+                    </spline-viewer>
+                    <!-- Otimizar carregamento de fontes -->
+                    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins" as="style" crossorigin>
+                    <!-- Botões Overlay removidos -->
+                </div>
+            </section>
+            <!-- Features Section -->
+            <section class="features fade-in-section" id="features" role="region" aria-labelledby="features-title" loading="lazy" fetchpriority="low">
+                <div class="container">
+                    <h2 class="section-title" id="features-title" data-i18n="features-title">Recursos Inteligentes</h2>
+                    <div class="features-grid grid-container">
+                        <div class="feature-card">
+                            <div class="feature-icon optimize-animation">AI</div>
+                            <h3 data-i18n="feature-1-title">Agentes Autônomos de IA</h3>
+                            <p data-i18n="feature-1-desc">Automatize processos complexos com agentes de IA que aprendem continuamente e se ajustam às demandas do seu negócio, garantindo eficiência e escalabilidade sem intervenção manual.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon optimize-animation">ML</div>
+                            <h3 data-i18n="feature-2-title">Aprendizado Contínuo e Aprimoramento Constante</h3>
+                            <p data-i18n="feature-2-desc">Nossos sistemas evoluem continuamente, impulsionados por aprendizado de máquina avançado.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon optimize-animation">NLP</div>
+                            <h3 data-i18n="feature-3-title">Processamento de Linguagem Natural Multilíngue</h3>
+                            <p data-i18n="feature-3-desc">Compreensão avançada de texto e conversas em diversos idiomas, otimizando a comunicação.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon optimize-animation">API</div>
+                            <h3 data-i18n="feature-4-title">Integração Simplificada através de APIs Robustas</h3>
+                            <p data-i18n="feature-4-desc">Oferecemos APIs robustas para a integração eficiente de nossos agentes de Inteligência Artificial com seus sistemas preexistentes.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon optimize-animation">SEC</div>
+                            <h3 data-i18n="feature-5-title">Segurança de Nível Empresarial com Criptografia de Ponta a Ponta</h3>
+                            <p data-i18n="feature-5-desc">Proteção avançada de dados para garantir a integridade e confidencialidade das suas informações.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon optimize-animation">VIZ</div>
+                            <h3 data-i18n="feature-6-title">Análise Visual em Tempo Real para Insights Acionáveis</h3>
+                            <p data-i18n="feature-6-desc">Transforme dados complexos em visualizações claras e obtenha insights imediatos para decisões estratégicas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Products Section -->
+            <section class="products fade-in-section" id="products" role="region" aria-labelledby="products-title">
+                <div class="container">
+                    <h2 class="section-title" id="products-title" data-i18n="products-title">Nossas Soluções</h2>
+                    <div class="product-showcase">
+                        <div class="product-image optimize-animation">
+                            <div class="placeholder-rect">Cogni Assistant: 500x300</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-i18n="product-1-title">Cogni Assistant: Assistente Virtual Inteligente 24/7</h3>
+                            <p data-i18n="product-1-desc">Automatize o atendimento ao cliente, obtenha respostas instantâneas e resolva problemas continuamente, otimizando custos operacionais em até 70%.</p>
+                            <button class="cta-button optimize-animation" data-i18n="learn-more">Saiba Mais</button>
+                        </div>
+                    </div>
+                    <div class="product-showcase">
+                        <div class="product-image optimize-animation">
+                            <div class="placeholder-rect">Cogni Analyst: 500x300</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-i18n="product-2-title">Cogni Analyst: Insights Acionáveis a Partir de Dados Complexos</h3>
+                            <p data-i18n="product-2-desc">Nossa ferramenta de análise transforma informações em insights valiosos, revelando tendências e oportunidades cruciais para o seu negócio.</p>
+                            <button class="cta-button optimize-animation" data-i18n="learn-more">Saiba Mais</button>
+                        </div>
+                    </div>
+                    <div class="product-showcase">
+                        <div class="product-image optimize-animation">
+                            <div class="placeholder-rect">Cogni Agent: 500x300</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-i18n="product-3-title">Cogni Agent: Automação Inteligente de Fluxos de Trabalho</h3>
+                            <p data-i18n="product-3-desc">Agentes autônomos personalizados para otimizar processos específicos, tomando decisões assertivas e executando tarefas de forma independente.</p>
+                            <button class="cta-button optimize-animation" data-i18n="learn-more">Saiba Mais</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Contact -->
+            <section class="contact fade-in-section" id="contact" role="region" aria-labelledby="contact-title">
+                <div class="container">
+                    <h2 class="section-title" id="contact-title" data-i18n="contact-title">Entre em Contato</h2>
+                    <div class="contact-grid grid-container">
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label for="name" data-i18n="contact-name">Nome</label>
+                                <input type="text" id="name" class="optimize-animation" data-i18n-placeholder="contact-name-placeholder" placeholder="Seu nome completo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" data-i18n="contact-email">Email</label>
+                                <input type="email" id="email" class="optimize-animation" data-i18n-placeholder="contact-email-placeholder" placeholder="seu.email@empresa.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company" data-i18n="contact-company">Empresa</label>
+                                <input type="text" id="company" class="optimize-animation" data-i18n-placeholder="contact-company-placeholder" placeholder="Nome da sua empresa">
+                            </div>
+                            <div class="form-group">
+                                <label for="message" data-i18n="contact-message">Mensagem</label>
+                                <textarea id="message" rows="4" class="optimize-animation" data-i18n-placeholder="contact-message-placeholder" placeholder="Como podemos ajudar?" required></textarea>
+                            </div>
+                            <button type="submit" class="cta-button optimize-animation" data-i18n="send-message">
+                                Enviar Mensagem <!-- Efeito de estrelas removido -->
+                            </button>
+                        </form>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <h4 data-i18n="contact-address">Endereço</h4>
+                                <p data-i18n="contact-address-line1">Av. Paulista, 1000, 15º andar</p>
+                                <p data-i18n="contact-address-line2">São Paulo, SP - Brasil</p>
+                            </div>
+                            <div class="contact-item">
+                                <h4 data-i18n="contact-email">Email</h4>
+                                <p><a href="mailto:contato@cogniia.com.br">contato@cogniia.com.br</a></p>
+                                <p><a href="mailto:suporte@cogniia.com.br">suporte@cogniia.com.br</a></p>
+                            </div>
+                            <div class="contact-item">
+                                <h4 data-i18n="contact-phone">Telefone</h4>
+                                <p><a href="tel:+551134567890">+55 (11) 3456-7890</a></p>
+                                <p><a href="tel:+551198765432">+55 (11) 9876-5432</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section class="about-us-content fade-in-section" id="about-us" role="region" aria-labelledby="about-title-main">
+                <div class="container">
+                    <h2 class="section-title" id="about-title-main" style="text-align: left; margin-bottom: 40px;" data-i18n="about-title">Sobre Nós</h2>
+                    <div class="about-section">
+                        <h2 data-i18n="about-mission-title">Missão</h2>
+                        <p data-i18n="about-mission-desc">Nossa missão é democratizar o acesso à inteligência artificial avançada, capacitando empresas de todos os tamanhos a automatizar processos, otimizar operações e alcançar resultados extraordinários.</p>
+                    </div>
+                    <div class="about-section">
+                        <h2 data-i18n="about-vision-title">Visão</h2>
+                        <p data-i18n="about-vision-desc">Ser a principal referência em soluções de IA personalizadas na América Latina, impulsionando a inovação e a transformação digital em diversos setores da economia.</p>
+                    </div>
+                    <div class="about-section">
+                        <h2 data-i18n="about-values-title">Valores</h2>
+                        <ul>
+                            <li><strong data-i18n="about-value-1-title">Inovação:</strong> <span data-i18n="about-value-1-desc">Buscamos constantemente novas tecnologias e abordagens para oferecer as melhores soluções.</span></li>
+                            <li><strong data-i18n="about-value-2-title">Excelência:</strong> <span data-i18n="about-value-2-desc">Comprometemo-nos com a mais alta qualidade em nossos produtos e serviços.</span></li>
+                            <li><strong data-i18n="about-value-3-title">Parceria:</strong> <span data-i18n="about-value-3-desc">Trabalhamos lado a lado com nossos clientes para garantir seu sucesso.</span></li>
+                            <li><strong data-i18n="about-value-4-title">Ética:</strong> <span data-i18n="about-value-4-desc">Agimos com integridade e transparência em todas as nossas interações.</span></li>
+                            <li><strong data-i18n="about-value-5-title">Impacto:</strong> <span data-i18n="about-value-5-desc">Focamos em gerar resultados tangíveis e positivos para nossos clientes e para a sociedade.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+    </main>
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo optimize-animation">Cogni<span>IA</span></div>
+                    <p class="footer-about" data-i18n="footer-about">Transformando negócios com soluções de inteligência artificial de ponta, personalizadas para as necessidades específicas de cada cliente.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link optimize-animation" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link optimize-animation" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link optimize-animation" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link optimize-animation" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 data-i18n="footer-quick-links">Links Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features" data-i18n="nav-resources">Recursos</a></li>
+                        <li><a href="#products" data-i18n="nav-products">Produtos</a></li>
+                        <li><a href="#contact" data-i18n="nav-contact">Contato</a></li>
+                        <li><a href="#" id="footer-about-link" data-i18n="about-title">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer-products">Produtos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" data-i18n="product-1-title">Cogni Assistant</a></li>
+                        <li><a href="#" data-i18n="product-2-title">Cogni Analyst</a></li>
+                        <li><a href="#" data-i18n="product-3-title">Cogni Agent</a></li>
+                        <!-- Link API Documentation removido -->
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer-support">Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" data-i18n="footer-help-center">Central de Ajuda</a></li>
+                        <li><a href="#" data-i18n="footer-docs">Documentação</a></li>
+                        <li><a href="#" data-i18n="footer-system-status">Status do Sistema</a></li>
+                        <li><a href="#" data-i18n="footer-privacy">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright" data-i18n="footer-copyright">
+                © 2025 Cogni IA. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão "Voltar ao Topo" -->
+    <button class="back-to-top optimize-animation" id="back-to-top-button" aria-label="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Estilos críticos inline para o primeiro render -->
+    <style>
+        /* Estilos críticos para o primeiro render */
+        body { margin: 0; font-family: 'Poppins', sans-serif; }
+        header { position: fixed; width: 100%; top: 0; z-index: 100; }
+        .hero { min-height: 100vh; display: flex; align-items: center; }
+    </style>
+    <!-- Link para o arquivo JavaScript externo (defer garante execução após parsing do HTML) -->
+    <script src="script.js" defer></script>
+
+</body>
+</html>
+<noscript>
+    <div class="noscript-message">
+        Para uma melhor experiência, por favor habilite o JavaScript no seu navegador.
+    </div>
+</noscript>
+<meta name="theme-color" content="#4242FF">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Cogni IA">
