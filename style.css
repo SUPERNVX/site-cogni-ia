@@ -1,145 +1,193 @@
-.device-mobile {
-    touch-action: manipulation; /* Melhora a resposta ao toque */
+/* --- Variáveis CSS Globais --- */
+:root {
+    /* Cores */
+    --azul-principal: #4242FF; --azul-mais-escuro: #2D2DB0; --azul-medio: #36B6FF; --azul-claro: #ACDDE7;
+    --roxo-escuro: #7844B8; --roxo-medio: #A379C9; --azul-escuro: #1A1E3F; --azul-acento: #36B6FF;
+    --cinza-claro: #F5F5F7; --cinza-medio: #86868B; --cinza-escuro: #333336; --text-light: #5A5A5F;
+    /* Transições */
+    --transition-base: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* Breakpoints */
+    --breakpoint-tablet: 1024px; --breakpoint-mobile: 768px; --breakpoint-small: 480px;
+    /* Dark Mode Variables */
+    --azul-dark-mode-bg: #121A3F; --azul-principal-dark: #3636DB; --roxo-escuro-dark: #5A3390; --roxo-medio-dark: #7B5AA0;
 }
 
-.device-mobile .hero {
-    height: auto;
-    min-height: 100vh;
+/* --- Reset e Estilos Base --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--cinza-claro); color: var(--cinza-escuro);
+    line-height: 1.5; scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* Previne ajuste automático de texto em iOS */
+    text-size-adjust: 100%;
+    overflow-x: hidden; /* Previne scroll horizontal */
 }
+h1, h2, h3, h4, h5, h6, .logo, .cta-button { font-family: 'Poppins', sans-serif; font-weight: 600; }
+.logo { font-weight: 700; } h1 { font-weight: 700; font-size: 48px; } h2 { font-weight: 700; font-size: 36px; }
+h3, h4 { font-weight: 600; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-.device-mobile spline-viewer {
-    transform: scale(1);
-}
+/* --- Otimização de Fontes --- */
+/* @font-face já está sendo carregado via link no HTML, não precisa repetir aqui */
 
-.device-mobile .hero-content {
-    display: block !important;
-    width: 100%;
-    max-width: 100%;
-    padding: 120px 20px 40px;
-}
-/* --- START OF ADDED CHANGES for .device-mobile --- */
-.device-mobile .placeholder-rect {
-    max-width: 400px;
-    max-height: 300px;
-    aspect-ratio: 4/3;
-}
+/* --- Otimizações de Performance e Utilitários --- */
+.lazy-load { opacity: 0; transition: opacity 0.3s ease-in; }
+.lazy-load.loaded { opacity: 1; }
+img { transition: opacity 0.3s ease; max-width: 100%; height: auto; display: block; }
+img.lazy { opacity: 0; }
+img.loaded { opacity: 1; }
+.optimize-animation { will-change: transform, opacity; transform: translateZ(0); backface-visibility: hidden; }
+.content-visibility-auto { content-visibility: auto; contain-intrinsic-size: 1px 5000px; }
 
-.device-mobile .footer-grid > div:nth-child(2),
-.device-mobile .footer-grid > div:nth-child(3) {
-    display: none;
-}
-
-.device-mobile .footer-grid > div:nth-child(4) .footer-links li.mobile-only {
-    display: block;
-}
-/* --- END OF ADDED CHANGES for .device-mobile --- */
-
-/* Previne problemas de layout em dispositivos móveis */
-@supports (-webkit-touch-callout: none) {
-    /* Ajustes específicos para iOS */
-    .hero, .features, .products, .testimonials, .contact {
-        padding-left: env(safe-area-inset-left);
-        padding-right: env(safe-area-inset-right);
+/* Otimização para renderização de fontes */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 95%;
     }
-    
-    .hero {
-        min-height: -webkit-fill-available;
+    h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
+}
+
+/* Otimização para redução de layout shifts */
+.hero-content, .feature-card, .product-showcase, .contact-grid {
+    min-height: 0vw; /* Previne CLS */
+}
+
+/* Otimização para animações */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
-/* --- Dark Mode --- */
-.dark-mode { --cinza-claro: #1A1D24; --cinza-medio: #ADB5BD; --cinza-escuro: #F8F9FA; --azul-escuro: #111318; background-color: var(--cinza-claro); color: var(--cinza-escuro); }
-.dark-mode header { background-color: rgba(26, 29, 36, 0.7); background-image: linear-gradient(to right, rgba(26, 29, 36, 0.9), rgba(66, 66, 255, 0.2), rgba(120, 68, 184, 0.1)); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(66, 66, 255, 0.1); }
-.dark-mode .logo, .dark-mode .nav-links a, .dark-mode .hamburger, .dark-mode .theme-toggle { color: var(--cinza-escuro); }
-.dark-mode .nav-links.active a { color: white; }
-.dark-mode .nav-links a:hover, .dark-mode .theme-toggle:hover { color: var(--roxo-medio-dark); }
-.dark-mode .hero::before { background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--roxo-escuro-dark) 100%); }
-.dark-mode .hero h1, .dark-mode .hero p { color: var(--cinza-escuro); }
-.dark-mode .features { background-color: var(--cinza-claro); }
-.dark-mode .section-title { color: var(--cinza-escuro); }
-.dark-mode .feature-card { background-color: #212529; color: var(--cinza-medio); }
-.dark-mode .feature-card h3 { color: var(--cinza-escuro); }
-.dark-mode .feature-card:hover h3, .dark-mode .feature-card:hover p { color: white; }
-.dark-mode .feature-card::before { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); }
-.dark-mode .feature-card:hover { box-shadow: 0 15px 30px rgba(54, 54, 219, 0.2); }
-.dark-mode .feature-icon { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); box-shadow: 0 5px 15px rgba(54, 54, 219, 0.25); }
-.dark-mode .products { background-color: var(--cinza-claro); }
-.dark-mode .product-info h3 { color: var(--cinza-escuro); }
-.dark-mode .product-info p { color: var(--cinza-medio); }
-.dark-mode .product-image img { filter: brightness(0.8) contrast(1.1); }
-.dark-mode .product-showcase:hover .product-info h3 { color: var(--azul-principal-dark); text-shadow: 0 0 20px rgba(54, 54, 219, 0.3); }
-.dark-mode .testimonial-card { background-color: rgba(54, 54, 219, 0.1); backdrop-filter: blur(8px); }
-.dark-mode .testimonial-text, .dark-mode .testimonial-author, .dark-mode .testimonial-position { color: var(--cinza-escuro); }
-.dark-mode .contact { background-color: var(--cinza-claro); }
-.dark-mode .contact-form { background-color: #212529; }
-.dark-mode .form-group label { color: var(--cinza-escuro); }
-.dark-mode .form-group input, .dark-mode .form-group textarea { background-color: var(--azul-escuro); border-color: #343A40; color: var(--cinza-escuro); }
-.dark-mode .form-group input::placeholder, .dark-mode .form-group textarea::placeholder { color: var(--cinza-medio); }
-.dark-mode .form-group input:focus, .dark-mode .form-group textarea:focus { border-color: var(--azul-principal-dark); box-shadow: 0 0 0 2px rgba(54, 54, 219, 0.3); background-color: #252930; }
-.dark-mode .contact-item h4 { color: var(--cinza-escuro); }
-.dark-mode .contact-item p { color: var(--cinza-medio); }
-.dark-mode .contact-item a { color: var(--azul-medio); }
-.dark-mode .contact-item a:hover { color: var(--azul-claro); }
-.dark-mode .footer-logo, .dark-mode .footer-links h4 { color: var(--cinza-escuro); }
-.dark-mode .footer-about, .dark-mode .footer-links a { color: var(--cinza-medio); }
-.dark-mode .footer-links a:hover { color: var(--roxo-medio-dark); }
-.dark-mode .social-link { background-color: rgba(54, 54, 219, 0.15); }
-.dark-mode .social-link:hover { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); }
-.dark-mode .copyright { color: var(--cinza-medio); border-top-color: rgba(54, 54, 219, 0.2); }
-.dark-mode .cta-button { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); color: #FFFFFF; box-shadow: 0 4px 12px rgba(54, 54, 219, 0.3); }
-.dark-mode .cta-button:hover { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--roxo-medio-dark) 0%, var(--azul-principal-dark) 100%); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(54, 54, 219, 0.4); }
-.dark-mode .back-to-top { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); box-shadow: 0 4px 12px rgba(54, 54, 219, 0.3); }
-.dark-mode .error { border-color: #ff6b6b !important; box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3) !important; }
-.dark-mode .about-us-content { background-color: var(--cinza-claro); }
-.dark-mode .about-section { background-color: #212529; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-.dark-mode .about-section:hover { box-shadow: 0 10px 25px rgba(25, 118, 210, 0.15); }
-.dark-mode .about-section h2 { color: #4D9EFF; }
-.dark-mode .about-section p, .dark-mode .about-section ul { color: var(--cinza-medio); }
-.dark-mode .about-section strong { color: var(--cinza-escuro); }
-.dark-mode .about-section li::before { color: #4D9EFF; }
-.dark-mode .language-dropdown { background-color: #212529; border: 1px solid #343A40; }
-.dark-mode .language-option { color: var(--cinza-escuro); }
-.dark-mode .language-option:hover { background-color: #2c3136; }
-.dark-mode .language-selector-button { color: var(--cinza-escuro); }
-.dark-mode .language-selector-button:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-/* Placeholder para imagens de produtos */
-.placeholder-rect {
+/* --- Acessibilidade: Estilo de Foco Visível --- */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 2px solid var(--azul-principal); outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.5);
+}
+a:focus:not(:focus-visible), button:focus:not(:focus-visible), input:focus:not(:focus-visible), textarea:focus:not(:focus-visible), [tabindex]:not([tabindex="-1"]):focus:not(:focus-visible) {
+    outline: none;
+}
+.dark-mode a:focus-visible, .dark-mode button:focus-visible, .dark-mode input:focus-visible, .dark-mode textarea:focus-visible, .dark-mode [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline-color: var(--azul-medio);
+    box-shadow: 0 0 0 4px rgba(54, 182, 255, 0.4);
+}
+.form-group input:focus, .form-group textarea:focus { outline: none; }
+
+
+/* --- Classes de Dispositivo (Aplicadas via JS) --- */
+.device-mobile .desktop-only { display: none; }
+.device-tablet .mobile-only { display: none; }
+.device-desktop .mobile-only { display: none; }
+
+/* --- Componente: Header --- */
+header {
+    background: linear-gradient(to right, rgba(245, 245, 247, 0.75), rgba(66, 66, 255, 0.1), rgba(163, 121, 201, 0.2));
+    backdrop-filter: blur(10px); border-bottom: 1px solid rgba(66, 66, 255, 0.1);
+    position: fixed; width: 100%; top: 0; z-index: 100;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    opacity: 1; transform: translateY(0); /* Garante visibilidade inicial */
+}
+header.scrolled { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+.logo-button-group { display: flex; align-items: center; margin-left: -60px; }
+.logo { text-decoration: none; display: flex; align-items: center; transition: transform 0.3s; }
+.logo:hover { transform: translateX(5px); }
+.logo img { height: 59px; width: auto; display: block; }
+
+/* --- Componente: Navegação --- */
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 2rem; }
+.nav-links li { margin-left: 0; }
+.nav-links a { color: var(--text-light); text-decoration: none; font-size: 17px; font-weight: 500; transition: color 0.3s, text-shadow 0.3s; }
+.nav-links a:hover { color: var(--azul-principal); text-shadow: 0 0 8px rgba(66, 66, 255, 0.3); }
+
+/* --- Componente: Botão CTA --- */
+.cta-button { display: inline-block; padding: 14px 32px; border-radius: 6px; font-size: 18px; font-weight: 600; text-decoration: none; text-align: center; cursor: pointer; transition: background-image 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; border: none; color: white; background-color: var(--azul-principal); background-image: linear-gradient(19deg, var(--azul-principal) 0%, var(--roxo-medio) 100%); box-shadow: 0 4px 15px rgba(66, 66, 255, 0.3); position: relative; overflow: hidden; /* Voltado para hidden */ }
+/* Hover será controlado por GSAP */
+.cta-button::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255, 255, 255, 0.2); border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.6s ease, height 0.6s ease; }
+.cta-button:active::after { width: 300px; height: 300px; opacity: 0; transition: width 0.4s ease, height 0.4s ease, opacity 0.5s ease; }
+/* Estilos para as estrelas removidos */
+
+/* --- Componente: Menu Hamburger --- */
+.hamburger { display: none; background: none; border: none; color: var(--cinza-escuro); font-size: 28px; cursor: pointer; padding: 5px; z-index: 101; }
+
+/* --- Seção: Hero --- */
+.hero { height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--azul-principal) 0%, var(--roxo-medio) 100%); z-index: 0; }
+.hero-content { position: relative; z-index: 2; max-width: 600px; text-align: center; display: none; padding: 0 20px; }
+.hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 20px; line-height: 1.2; color: white; text-shadow: 0 2px 10px rgba(66, 66, 255, 0.3); }
+.hero-content h1 { font-size: 36px; }
+.hero-content p { font-size: 18px; margin-bottom: 30px; color: rgba(255, 255, 255, 0.8); }
+/* .hero-buttons-overlay removido */
+
+/* --- Componente: Spline Viewer --- */
+spline-viewer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 1; transform: scale(1.2); }
+.showing-about-us spline-viewer { display: none !important; }
+
+/* --- Seção: Features --- */
+.features { border-top: 1px solid #e8e8eb; padding: 100px 0; background-color: white; }
+.section-title { text-align: center; font-size: 36px; margin-bottom: 60px; color: var(--azul-escuro); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; }
+.feature-card { background-color: var(--cinza-claro); border-radius: 30px 10px 30px 10px; padding: 30px; transition: color 0.3s; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+/* Hover será controlado por GSAP */
+.feature-card:hover h3, .feature-card:hover p { color: white; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); font-weight: 500; }
+.feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--azul-principal); background-image: linear-gradient(19deg, var(--azul-principal) 0%, var(--roxo-medio) 100%); transform: scaleX(0); transform-origin: right; transition: transform 0.3s; z-index: -1; }
+.feature-card:hover::before { transform: scaleX(1); }
+.feature-icon { background-color: var(--azul-principal); background-image: linear-gradient(19deg, var(--azul-principal) 0%, var(--roxo-medio) 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(66, 66, 255, 0.25); }
+.feature-card h3 { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 20px; margin-bottom: 15px; color: var(--azul-escuro); transition: color 0.3s; }
+.feature-card p { font-weight: 400; color: var(--cinza-medio); font-size: 16px; transition: color 0.3s; }
+
+/* --- Seção: Products --- */
+.products { border-top: 1px solid #e8e8eb; padding: 100px 0; background-color: var(--cinza-claro); }
+.product-showcase { display: flex; align-items: center; margin-bottom: 80px; transition: transform 0.3s; }
+.product-showcase:nth-child(even) { flex-direction: row-reverse; }
+.product-image { flex: 1; padding: 20px; }
+.product-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: transform 0.3s, filter 0.3s; }
+.product-info { flex: 1; padding: 20px; }
+.product-info h3 { font-family: 'Montserrat', sans-serif; font-size: 28px; margin-bottom: 20px; color: var(--azul-escuro); transition: color 0.3s; }
+.product-showcase:hover .product-image img { transform: scale(1.05); filter: brightness(1.1); }
+.product-showcase:hover .product-info h3 { color: var(--azul-principal); text-shadow: 0 0 20px rgba(66, 66, 255, 0.2); }
+.product-info p { margin-bottom: 25px; color: var(--cinza-medio); font-size: 16px; }
+
+/* Retângulos para demonstração de imagens (FIRST OCCURRENCE - this is where the first set of placeholder rules were, now intentionally left if distinct or modified by user's new rule logic at the end) */
+/* If the new .placeholder-rect at the end is meant to be the SOLE definition, this older .product-image .placeholder-rect and its specific showcase overrides might be redundant or need removal.
+   For now, I am keeping the file structure largely as is, and applying the new general .placeholder-rect rule at the end as requested.
+*/
+.product-image .placeholder-rect { /* This is an older placeholder rule block in the original CSS */
     width: 500px;
     height: 300px;
-    background: linear-gradient(135deg, rgba(66, 66, 255, 0.1) 0%, rgba(163, 121, 201, 0.2) 100%);
-    border-radius: 20px;
+    background-color: #f0f0f0; /* Default, overridden by new rule at the end if new rule applies globally */
+    border: 2px dashed #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--cinza-medio);
-    font-size: 18px;
-    margin: 0 auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    color: #666;
+    font-weight: bold;
+    border-radius: 20px;
 }
 
-/* These specific showcase placeholder styles are kept from your original file, they will override the general .placeholder-rect above for these specific cases */
 .product-showcase:nth-child(1) .placeholder-rect {
-    background-color: rgba(66, 66, 255, 0.1); /* This specific BG overrides the general gradient */
+    background-color: rgba(66, 66, 255, 0.1); /* This will override the general one from the end for this specific case */
     border-color: #4242FF;
     color: #4242FF;
-    /* Note: border-radius, display, align-items, justify-content, margin, box-shadow will be inherited from general .placeholder-rect if not specified here */
 }
 
 .product-showcase:nth-child(2) .placeholder-rect {
-    background-color: rgba(54, 182, 255, 0.1); /* This specific BG overrides the general gradient */
+    background-color: rgba(54, 182, 255, 0.1);
     border-color: #36B6FF;
     color: #36B6FF;
 }
 
 .product-showcase:nth-child(3) .placeholder-rect {
-    background-color: rgba(163, 121, 201, 0.1); /* This specific BG overrides the general gradient */
+    background-color: rgba(163, 121, 201, 0.1);
     border-color: #A379C9;
     color: #A379C9;
 }
-/* --- END OF MODIFIED/NEW PLACEHOLDER SECTION --- */
-.product-showcase:hover .product-image img { transform: scale(1.05); filter: brightness(1.1); }
-.product-showcase:hover .product-info h3 { color: var(--azul-principal); text-shadow: 0 0 20px rgba(66, 66, 255, 0.2); }
-.product-info p { margin-bottom: 25px; color: var(--cinza-medio); font-size: 16px; }
+
 
 /* --- Seção: Testimonials --- */
 .testimonials { padding: 100px 0; background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-principal) 60%, var(--roxo-escuro) 100%); color: white; /* Animação removida */ }
@@ -352,33 +400,30 @@ body:not(.dark-mode) .theme-toggle .sun-icon { display: inline-block; }
 .product-image .placeholder-rect {
     width: 500px;
     height: 300px;
-    background: linear-gradient(135deg, rgba(66, 66, 255, 0.1) 0%, rgba(163, 121, 201, 0.2) 100%);
-    border-radius: 20px;
+    background-color: #f0f0f0;
+    border: 2px dashed #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--cinza-medio);
-    font-size: 18px;
-    margin: 0 auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    color: #666;
+    font-weight: bold;
+    border-radius: 20px;
 }
 
-/* These specific showcase placeholder styles are kept from your original file, they will override the general .placeholder-rect above for these specific cases */
 .product-showcase:nth-child(1) .placeholder-rect {
-    background-color: rgba(66, 66, 255, 0.1); /* This specific BG overrides the general gradient */
+    background-color: rgba(66, 66, 255, 0.1);
     border-color: #4242FF;
     color: #4242FF;
-    /* Note: border-radius, display, align-items, justify-content, margin, box-shadow will be inherited from general .placeholder-rect if not specified here */
 }
 
 .product-showcase:nth-child(2) .placeholder-rect {
-    background-color: rgba(54, 182, 255, 0.1); /* This specific BG overrides the general gradient */
+    background-color: rgba(54, 182, 255, 0.1);
     border-color: #36B6FF;
     color: #36B6FF;
 }
 
 .product-showcase:nth-child(3) .placeholder-rect {
-    background-color: rgba(163, 121, 201, 0.1); /* This specific BG overrides the general gradient */
+    background-color: rgba(163, 121, 201, 0.1);
     border-color: #A379C9;
     color: #A379C9;
 }
@@ -485,7 +530,7 @@ body:not(.dark-mode) .theme-toggle .sun-icon { display: inline-block; }
 @media (max-width: 820px) {
     .hero h1 { font-size: 38px; } .product-showcase, .product-showcase:nth-child(even) { flex-direction: column; } .contact-grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* REPEATED SECTION */
     .container { padding-left: 10px; padding-right: 10px; }
     nav { padding-left: 10px; padding-right: 10px; width: 100%; }
     .logo-button-group { margin-left: 10px; } .logo img { height: 45px; }
@@ -529,7 +574,8 @@ body:not(.dark-mode) .theme-toggle .sun-icon { display: inline-block; }
 @media (max-width: 640px) { /* REPEATED SECTION */
     /* Styles for Small Mobile */
 }
-@media (max-width: 480px) { /* REPEATED SECTION */
+/* THIS IS THE MEDIA QUERY BLOCK WHERE CHANGES WILL BE APPLIED */
+@media (max-width: 480px) { /* REPEATED and more DETAILED - THIS IS THE TARGET FOR MODIFICATION */
     /* Styles for Small Phones */
     .container { padding: 0 10px; }
     .logo img { height: 45px; }
@@ -677,4 +723,58 @@ body:not(.dark-mode) .theme-toggle .sun-icon { display: inline-block; }
 .dark-mode .footer-about, .dark-mode .footer-links a { color: var(--cinza-medio); }
 .dark-mode .footer-links a:hover { color: var(--roxo-medio-dark); }
 .dark-mode .social-link { background-color: rgba(54, 54, 219, 0.15); }
-.dark-mode .social-link:hover { background-color: var(--azul-principal-dark); background-image: linear }
+.dark-mode .social-link:hover { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); }
+.dark-mode .copyright { color: var(--cinza-medio); border-top-color: rgba(54, 54, 219, 0.2); }
+.dark-mode .cta-button { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); color: #FFFFFF; box-shadow: 0 4px 12px rgba(54, 54, 219, 0.3); }
+.dark-mode .cta-button:hover { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--roxo-medio-dark) 0%, var(--azul-principal-dark) 100%); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(54, 54, 219, 0.4); }
+.dark-mode .back-to-top { background-color: var(--azul-principal-dark); background-image: linear-gradient(19deg, var(--azul-principal-dark) 0%, var(--roxo-medio-dark) 100%); box-shadow: 0 4px 12px rgba(54, 54, 219, 0.3); }
+.dark-mode .error { border-color: #ff6b6b !important; box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3) !important; }
+.dark-mode .about-us-content { background-color: var(--cinza-claro); }
+.dark-mode .about-section { background-color: #212529; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.dark-mode .about-section:hover { box-shadow: 0 10px 25px rgba(25, 118, 210, 0.15); }
+.dark-mode .about-section h2 { color: #4D9EFF; }
+.dark-mode .about-section p, .dark-mode .about-section ul { color: var(--cinza-medio); }
+.dark-mode .about-section strong { color: var(--cinza-escuro); }
+.dark-mode .about-section li::before { color: #4D9EFF; }
+.dark-mode .language-dropdown { background-color: #212529; border: 1px solid #343A40; }
+.dark-mode .language-option { color: var(--cinza-escuro); }
+.dark-mode .language-option:hover { background-color: #2c3136; }
+.dark-mode .language-selector-button { color: var(--cinza-escuro); }
+.dark-mode .language-selector-button:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+/* --- START OF MODIFIED/NEW PLACEHOLDER SECTION (applied to the last instance) --- */
+/* Placeholder para imagens de produtos */
+.placeholder-rect {
+    width: 500px;
+    height: 300px;
+    background: linear-gradient(135deg, rgba(66, 66, 255, 0.1) 0%, rgba(163, 121, 201, 0.2) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cinza-medio);
+    font-size: 18px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* These specific showcase placeholder styles are kept from your original file, they will override the general .placeholder-rect above for these specific cases */
+.product-showcase:nth-child(1) .placeholder-rect {
+    background-color: rgba(66, 66, 255, 0.1); /* This specific BG overrides the general gradient */
+    border-color: #4242FF;
+    color: #4242FF;
+    /* Note: border-radius, display, align-items, justify-content, margin, box-shadow will be inherited from general .placeholder-rect if not specified here */
+}
+
+.product-showcase:nth-child(2) .placeholder-rect {
+    background-color: rgba(54, 182, 255, 0.1); /* This specific BG overrides the general gradient */
+    border-color: #36B6FF;
+    color: #36B6FF;
+}
+
+.product-showcase:nth-child(3) .placeholder-rect {
+    background-color: rgba(163, 121, 201, 0.1); /* This specific BG overrides the general gradient */
+    border-color: #A379C9;
+    color: #A379C9;
+}
+/* --- END OF MODIFIED/NEW PLACEHOLDER SECTION --- */

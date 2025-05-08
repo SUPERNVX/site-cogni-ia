@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showAboutPage() {
         elements.body.classList.add('showing-about-us');
         window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top when switching
-    
+
         // Close mobile menu if open
         if (elements.navLinksContainer && elements.navLinksContainer.classList.contains('active')) {
              elements.navLinksContainer.classList.remove('active');
@@ -380,16 +380,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initAboutToggle() {
-        // Listener for the "About Us" link in the footer and nav
-        const navAboutLink = document.getElementById('nav-about-link');
-        const footerAboutLink = document.getElementById('footer-about-link');
-        
-        const aboutLinks = [];
-        if (navAboutLink) aboutLinks.push(navAboutLink);
-        if (footerAboutLink) aboutLinks.push(footerAboutLink);
+        // Listener for the "About Us" link in the footer
+        const aboutLinks = [elements.footerAboutLink]; // Add navAboutLink here if it exists
+        if (elements.navAboutLink) {
+            aboutLinks.push(elements.navAboutLink);
+        }
 
         aboutLinks.forEach(link => {
-            if (link) {
+            if (link) { // Check if the link exists
                 link.addEventListener('click', (event) => {
                     event.preventDefault(); // Prevent default link behavior
                     showAboutPage();
@@ -398,21 +396,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Listeners for main navigation links (including logo) to switch back
-        document.querySelectorAll('header nav a:not(#nav-about-link)').forEach(link => {
+        // This includes nav links and the logo
+        document.querySelectorAll('header nav a').forEach(link => {
             link.addEventListener('click', (event) => {
-                // If we are currently showing the "About Us" page
-                if (elements.body.classList.contains('showing-about-us')) {
-                    // Check if the clicked link is internal (starts with #) or the logo
-                    const href = link.getAttribute('href');
-                    if ((href && href.startsWith('#')) || link.classList.contains('logo')) {
-                        // If it's an internal link or logo, prevent default only if it's the logo
-                        if (link.classList.contains('logo')) {
-                            event.preventDefault();
-                            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll logo click to top
-                        }
-                        showMainContent(); // Switch back to main content
-                    }
-                }
+                 // If we are currently showing the "About Us" page
+                 if (elements.body.classList.contains('showing-about-us')) {
+                      // Check if the clicked link is internal (starts with #) or the logo
+                     const href = link.getAttribute('href');
+                     if ((href && href.startsWith('#')) || link.classList.contains('logo')) {
+                          // If it's an internal link or logo, prevent default only if it's the logo
+                         if (link.classList.contains('logo')) {
+                             event.preventDefault();
+                             window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll logo click to top
+                         }
+                          showMainContent(); // Switch back to main content
+                         // Let the browser handle scrolling for internal links like #features
+                     }
+                     // If it's an external link, let it navigate normally
+                 } else if (link.classList.contains('logo')) {
+                      // If already on main content and logo is clicked, scroll to top
+                      event.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                 }
+                 // Let browser handle smooth scroll for other hash links (#features, #products etc.)
             });
         });
     }
