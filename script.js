@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
         messageInput: document.getElementById('message'),
         backToTopButton: document.getElementById('back-to-top-button'),
         footerAboutLink: document.getElementById('footer-about-link'),
-        navAboutLink: document.getElementById('nav-about-link'), // Note: This element might not exist if removed from nav
-        mainNavLinks: document.querySelectorAll('.main-nav-link'), // Selects only the logo link now
+        navAboutLink: document.getElementById('nav-about-link'), // Agora este elemento existe
+        mainNavLinks: document.querySelectorAll('.main-nav-link'),
         languageDropdown: document.querySelector('.language-dropdown'),
         currentLanguageEl: document.getElementById('current-language'),
         splineContainer: document.getElementById(splineViewerId)?.parentNode,
@@ -541,8 +541,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'about-values-title': 'Valores',
             'about-value-1-title': 'Innovación:', 'about-value-1-desc': 'Buscamos constantemente nuevas tecnologías y enfoques para ofrecer las mejores soluciones.',
             'about-value-2-title': 'Excelencia:', 'about-value-2-desc': 'Nos comprometemos con la más alta calidad en nuestros productos y servicios.',
-            'about-value-3-title': 'Colaboración:', 'about-value-3-desc': 'Trabajamos codo a codo con nuestros clientes para garantizar su éxito.',
-            'about-value-4-title': 'Ética:', 'about-value-4-desc': 'Actuamos con integridad y transparencia en todas nuestras interacciones.',
+            'about-value-3-title': 'Colaboración:', 'about-value-3-desc': 'Trabajamos codo a codo con nuestros clientes para garantizar seu sucesso.',
+            'about-value-4-title': 'Ética:', 'about-value-4-desc': 'Actuamos con integridad y transparencia em todas nuestras interacciones.',
             'about-value-5-title': 'Impacto:', 'about-value-5-desc': 'Nos enfocamos en generar resultados tangibles y positivos para nuestros clientes y para la sociedad.'
         }
     };
