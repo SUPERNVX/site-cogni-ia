@@ -18,6 +18,9 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: var(--cinza-claro); color: var(--cinza-escuro);
     line-height: 1.5; scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* Previne ajuste automático de texto em iOS */
+    text-size-adjust: 100%;
+    overflow-x: hidden; /* Previne scroll horizontal */
 }
 h1, h2, h3, h4, h5, h6, .logo, .cta-button { font-family: 'Poppins', sans-serif; font-weight: 600; }
 .logo { font-weight: 700; } h1 { font-weight: 700; font-size: 48px; } h2 { font-weight: 700; font-size: 36px; }
@@ -540,7 +543,70 @@ body:not(.dark-mode) .theme-toggle .sun-icon { display: inline-block; }
 @media (max-width: 360px) {
     .logo img { height: 40px; } .theme-toggle { font-size: 24px; }
 }
+@media (max-width: 480px) {
+    /* Styles for Small Phones */
+    .container { padding: 0 10px; }
+    .logo img { height: 45px; }
+    .hero h1 { font-size: 28px; }
+    .section-title { font-size: 28px; margin-bottom: 40px; }
+    .feature-card { padding: 20px; }
+    .feature-icon { width: 50px; height: 50px; font-size: 20px; }
+    
+    /* Ajustes para prevenir zoom e cortes */
+    body { width: 100vw; overflow-x: hidden; }
+    .hero { height: auto; min-height: 100vh; }
+    .hero-content { width: 100%; }
+    
+    /* Ajuste para o botão CTA */
+    .hero-content .cta-button { 
+        display: block; 
+        margin: 30px auto 0; 
+        width: fit-content; 
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+    
+    /* Ajuste para o Spline Viewer em telas muito pequenas */
+    spline-viewer { 
+        transform: scale(1);
+        width: 100%;
+        height: 100%;
+    }
+}
 
+/* Ajustes específicos para dispositivos móveis */
+.device-mobile {
+    touch-action: manipulation; /* Melhora a resposta ao toque */
+}
+
+.device-mobile .hero {
+    height: auto;
+    min-height: 100vh;
+}
+
+.device-mobile spline-viewer {
+    transform: scale(1);
+}
+
+.device-mobile .hero-content {
+    display: block !important;
+    width: 100%;
+    max-width: 100%;
+    padding: 120px 20px 40px;
+}
+
+/* Previne problemas de layout em dispositivos móveis */
+@supports (-webkit-touch-callout: none) {
+    /* Ajustes específicos para iOS */
+    .hero, .features, .products, .testimonials, .contact {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    .hero {
+        min-height: -webkit-fill-available;
+    }
+}
 /* --- Dark Mode --- */
 .dark-mode { --cinza-claro: #1A1D24; --cinza-medio: #ADB5BD; --cinza-escuro: #F8F9FA; --azul-escuro: #111318; background-color: var(--cinza-claro); color: var(--cinza-escuro); }
 .dark-mode header { background-color: rgba(26, 29, 36, 0.7); background-image: linear-gradient(to right, rgba(26, 29, 36, 0.9), rgba(66, 66, 255, 0.2), rgba(120, 68, 184, 0.1)); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(66, 66, 255, 0.1); }
