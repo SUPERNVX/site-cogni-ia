@@ -215,18 +215,18 @@ spline-viewer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
 .contact-item a:hover { color: var(--azul-mais-escuro); text-decoration: underline; }
 
 /* --- Componente: Footer --- */
-footer { background-color: var(--azul-escuro); background-image: linear-gradient(19deg, var(--azul-escuro) 0%, var(--roxo-medio) 100%); padding: 80px 0 40px; color: white; opacity: 1; transform: translateY(0); /* Garante visibilidade inicial */ }
+footer { background-color: var(--azul-escuro); background-image: linear-gradient(19deg, var(--azul-escuro) 0%, var(--roxo-medio) 100%); padding: 80px 0 40px; color: white; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-logo { font-size: 24px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; }
 .footer-logo span { background-color: var(--azul-medio); background-image: linear-gradient(19deg, var(--azul-medio) 0%, var(--roxo-medio) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .footer-about { color: var(--cinza-medio); margin-bottom: 20px; }
 .social-links { display: flex; gap: 15px; }
-.social-link { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; margin-right: 10px; transition: background-color 0.3s, transform 0.3s; }
+.social-link { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; margin-right: 10px; }
 /* Hover será controlado por GSAP */
 .footer-links h4 { font-size: 18px; margin-bottom: 20px; color: white; }
 .footer-links ul { list-style: none; padding: 0; margin: 0; }
 .footer-links li { margin-bottom: 8px; }
-.footer-links a { color: var(--cinza-medio); text-decoration: none; transition: color 0.3s; }
+.footer-links a { color: var(--cinza-medio); text-decoration: none; }
 .footer-links a:hover { color: var(--azul-acento); }
 .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: var(--cinza-medio); font-size: 14px; }
 
@@ -457,18 +457,18 @@ body:not(.dark-mode) .theme-toggle .sun-icon { display: inline-block; }
 .contact-item a:hover { color: var(--azul-mais-escuro); text-decoration: underline; }
 
 /* --- Componente: Footer --- */ /* REPEATED SECTION */
-footer { background-color: var(--azul-escuro); background-image: linear-gradient(19deg, var(--azul-escuro) 0%, var(--roxo-medio) 100%); padding: 80px 0 40px; color: white; opacity: 1; transform: translateY(0); /* Garante visibilidade inicial */ }
+footer { background-color: var(--azul-escuro); background-image: linear-gradient(19deg, var(--azul-escuro) 0%, var(--roxo-medio) 100%); padding: 80px 0 40px; color: white; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-logo { font-size: 24px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; }
 .footer-logo span { background-color: var(--azul-medio); background-image: linear-gradient(19deg, var(--azul-medio) 0%, var(--roxo-medio) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .footer-about { color: var(--cinza-medio); margin-bottom: 20px; }
 .social-links { display: flex; gap: 15px; }
-.social-link { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; margin-right: 10px; transition: background-color 0.3s, transform 0.3s; }
+.social-link { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; margin-right: 10px; }
 /* Hover será controlado por GSAP */
 .footer-links h4 { font-size: 18px; margin-bottom: 20px; color: white; }
 .footer-links ul { list-style: none; padding: 0; margin: 0; }
 .footer-links li { margin-bottom: 8px; }
-.footer-links a { color: var(--cinza-medio); text-decoration: none; transition: color 0.3s; }
+.footer-links a { color: var(--cinza-medio); text-decoration: none; }
 .footer-links a:hover { color: var(--azul-acento); }
 .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: var(--cinza-medio); font-size: 14px; }
 

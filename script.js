@@ -58,8 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         messageInput: document.getElementById('message'),
         backToTopButton: document.getElementById('back-to-top-button'),
         footerAboutLink: document.getElementById('footer-about-link'),
-        navAboutLink: document.getElementById('nav-about-link'), // Note: This element might not exist if removed from nav
-        mainNavLinks: document.querySelectorAll('.main-nav-link'), // Selects only the logo link now
+        footerAboutLinkMobile: document.getElementById('footer-about-link-mobile'), // Adicionado para o link mobile
+        navAboutLink: document.getElementById('nav-about-link'), // Nota: Este elemento não deve existir se removido da navegação principal
+        mainNavLinks: document.querySelectorAll('.main-nav-link'), // Seleciona apenas o link do logo agora
         languageDropdown: document.querySelector('.language-dropdown'),
         currentLanguageEl: document.getElementById('current-language'),
         splineContainer: document.getElementById(splineViewerId)?.parentNode,
@@ -380,45 +381,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initAboutToggle() {
-        // Listener for the "About Us" link in the footer
-        const aboutLinks = [elements.footerAboutLink]; // Add navAboutLink here if it exists
-        if (elements.navAboutLink) {
-            aboutLinks.push(elements.navAboutLink);
+        const aboutTriggers = [];
+        if (elements.footerAboutLink) {
+            aboutTriggers.push(elements.footerAboutLink);
         }
+        if (elements.footerAboutLinkMobile) {
+            aboutTriggers.push(elements.footerAboutLinkMobile);
+        }
+        // elements.navAboutLink não é adicionado aqui, assumindo que foi removido do HTML da navegação principal.
+        // Se o navAboutLink ainda existisse e devesse acionar a página "Sobre Nós",
+        // poderia ser adicionado aqui com: if (elements.navAboutLink) aboutTriggers.push(elements.navAboutLink);
 
-        aboutLinks.forEach(link => {
-            if (link) { // Check if the link exists
-                link.addEventListener('click', (event) => {
-                    event.preventDefault(); // Prevent default link behavior
-                    showAboutPage();
-                });
-            }
+        aboutTriggers.forEach(link => {
+            // O 'if (link)' dentro do forEach não é estritamente necessário aqui,
+            // já que apenas adicionamos elementos existentes ao array aboutTriggers.
+            // Mas mantê-lo não causa problemas.
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Previne o comportamento padrão do link
+                showAboutPage();
+            });
         });
 
-        // Listeners for main navigation links (including logo) to switch back
-        // This includes nav links and the logo
+        // Listeners para os links da navegação principal (incluindo o logo) para voltar ao conteúdo principal
+        // Esta parte do código permanece como está, pois lida com o retorno da página "Sobre Nós" para o conteúdo principal,
+        // e não com o acionamento inicial da página "Sobre Nós".
         document.querySelectorAll('header nav a').forEach(link => {
             link.addEventListener('click', (event) => {
-                 // If we are currently showing the "About Us" page
+                 // Se estivermos mostrando a página "Sobre Nós"
                  if (elements.body.classList.contains('showing-about-us')) {
-                      // Check if the clicked link is internal (starts with #) or the logo
+                      // Verifica se o link clicado é interno (começa com #) ou o logo
                      const href = link.getAttribute('href');
                      if ((href && href.startsWith('#')) || link.classList.contains('logo')) {
-                          // If it's an internal link or logo, prevent default only if it's the logo
+                          // Se for um link interno ou o logo, previne o padrão apenas para o logo
                          if (link.classList.contains('logo')) {
                              event.preventDefault();
-                             window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll logo click to top
+                             window.scrollTo({ top: 0, behavior: 'smooth' }); // Rola o clique no logo para o topo
                          }
-                          showMainContent(); // Switch back to main content
-                         // Let the browser handle scrolling for internal links like #features
+                          showMainContent(); // Volta para o conteúdo principal
                      }
-                     // If it's an external link, let it navigate normally
-                 } else if (link.classList.contains('logo')) {
-                      // If already on main content and logo is clicked, scroll to top
-                      event.preventDefault();
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
                  }
-                 // Let browser handle smooth scroll for other hash links (#features, #products etc.)
             });
         });
     }
@@ -520,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'products-title': 'Nuestras Soluciones',
             'product-1-title': 'Cogni Assistant: Asistente Virtual Inteligente 24/7', 'product-1-desc': 'Automatice la atención al cliente, obtenga respuestas instantáneas y resuelva problemas continuamente, optimizando costos operativos hasta en un 70%.',
             'product-2-title': 'Cogni Analyst: Insights Accionables a Partir de Datos Complejos', 'product-2-desc': 'Nuestra herramienta de análisis transforma información en insights valiosos, revelando tendencias y oportunidades cruciales para su negocio.',
-            'product-3-title': 'Cogni Agent: Automação Inteligente de Fluxos de Trabajo', 'product-3-desc': 'Agentes autónomos personalizados para optimizar procesos específicos, tomando decisiones asertivas y ejecutando tareas de forma independiente.',
+            'product-3-title': 'Cogni Agent: Automação Inteligente de Fluxos de Trabajo', 'product-3-desc': 'Agentes autónomos personalizados para otimizar processos específicos, tomando decisiones asertivas y ejecutando tareas de forma independiente.',
             'learn-more': 'Saber Más',
             'contact-title': 'Entre em Contato',
             'contact-name': 'Nombre', 'contact-name-placeholder': 'Su nombre completo',
@@ -539,8 +540,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'about-mission-title': 'Misión', 'about-mission-desc': 'Nuestra misión es democratizar el acceso a la inteligencia artificial avanzada, capacitando a empresas de todos los tamaños para automatizar procesos, optimizar operaciones y alcanzar resultados extraordinarios.',
             'about-vision-title': 'Visión', 'about-vision-desc': 'Ser la principal referencia en soluciones de IA personalizadas en América Latina, impulsando la innovación y la transformación digital en diversos sectores de la economía.',
             'about-values-title': 'Valores',
-            'about-value-1-title': 'Innovación:', 'about-value-1-desc': 'Buscamos constantemente nuevas tecnologías y enfoques para ofrecer las mejores soluciones.',
-            'about-value-2-title': 'Excelencia:', 'about-value-2-desc': 'Nos comprometemos con la más alta calidad en nuestros productos y servicios.',
+            'about-value-1-title': 'Inovación:', 'about-value-1-desc': 'Buscamos constantemente nuevas tecnologías y enfoques para ofrecer las mejores soluciones.',
+            'about-value-2-title': 'Excelência:', 'about-value-2-desc': 'Nos comprometemos con la más alta calidad en nuestros productos y servicios.',
             'about-value-3-title': 'Colaboración:', 'about-value-3-desc': 'Trabajamos codo a codo con nuestros clientes para garantizar su éxito.',
             'about-value-4-title': 'Ética:', 'about-value-4-desc': 'Actuamos con integridad y transparencia en todas nuestras interacciones.',
             'about-value-5-title': 'Impacto:', 'about-value-5-desc': 'Nos enfocamos en generar resultados tangibles y positivos para nuestros clientes y para la sociedad.'
@@ -682,22 +683,6 @@ document.addEventListener('DOMContentLoaded', () => {
                  });
              }
 
-             // Footer elements fade/slide up
-             const footerElements = document.querySelectorAll('footer .footer-grid > div');
-              if (footerElements.length > 0) {
-                  gsap.from(footerElements, {
-                     scrollTrigger: {
-                         trigger: 'footer',
-                         start: 'top bottom-=100px', // Trigger 100px before footer bottom hits viewport top
-                         toggleActions: 'play none none none'
-                     },
-                     y: 30,
-                     opacity: 0,
-                     duration: 0.6,
-                     stagger: 0.1,
-                     immediateRender: false // Prevent initial flash
-                 });
-             }
 
              // --- Micro-interactions (Hover Effects) ---
              // CTA Buttons
